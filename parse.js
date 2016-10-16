@@ -34,6 +34,13 @@ var Symbol = v([
   {name: 'numberOfAuxSymbols', type: v.UInt8}
 ])
 
+var LineNumber = v([
+  {name: 'type', type: v.UInt32LE},
+  {name: 'lineNumber', type: v.UInt16LE},
+  {name: 'symbolTableIndex', type: v.UInt32LE},
+  {name: 'virtualAddress', type: v.UInt32LE}
+])
+
 module.exports = function (buffer) {
   COFFHeader.decode(buffer, 0)
   //if optional header size is zero, parse section header(s)
@@ -80,6 +87,9 @@ if(!module.parent) {
 
       //TODO: 1. parse relocations
       //      2. parse line numbers
+
+      if(sh.pointerToLineNumbers)
+        sh.lineNumbers = parseArray(buffer, sh.numberOfLineNumbers, sh.pointerToLineNumbers, LineNumber)
 
       return sh
     })
