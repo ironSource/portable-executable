@@ -1,0 +1,9 @@
+Offset, Size, Field, Description
+0, 4, Characteristics, "A reserved field intended to be used for flags, set to zero for now."
+4, 4, TimeDateStamp, "Time and date the debug data was created."
+8, 2, MajorVersion, "Major version number of the debug data format."
+10, 2, MinorVersion, "Minor version number of the debug data format."
+12, 4, Type, "Format of debugging information: this field enables support of multiple debuggers. See Section 6.1.2, “Debug Type,” for more information."
+16, 4, SizeOfData, "Size of the debug data (not including the debug directory itself)."
+20, 4, AddressOfRawData, "Address of the debug data when loaded, relative to the image base."
+24, 4, PointerToRawData, File pointer to the debug data.

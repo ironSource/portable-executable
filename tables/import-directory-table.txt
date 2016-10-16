@@ -1,0 +1,6 @@
+Offset, Size, Field, Description
+0, 4, Import Lookup Table RVA (Characteristics), Relative virtual address of the Import Lookup Table; this table contains a name or ordinal for each import. (The name'Characteristics' is used in WINNT.H but is no longer descriptive of this field.)"
+4, 4, Time/Date Stamp, "Set to zero until bound; then this field is set to the time/data stamp of the DLL."
+8, 4, Fowarder Chain, "Index of first forwarder reference."
+12, 4, Name RVA, "Address of ASCII string containing the DLL name. This address is relative to the image base."
+16, 4, Import Address Table RVA (Thunk Table), Relative virtual address of the Import Address Table: this table is identical in contents to the Import Lookup Table until the image is bound."

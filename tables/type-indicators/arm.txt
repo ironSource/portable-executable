@@ -1,0 +1,9 @@
+Constant, Value, Description
+IMAGE_REL_ARM_ABSOLUTE, 0x0000, "This relocation is ignored."
+IMAGE_REL_ARM_ADDR32, 0x0001, "The target's 32-bit virtual address."
+IMAGE_REL_ARM_ADDR32NB, 0x0002, The target's 32-bit relative virtual address."
+IMAGE_REL_ARM_BRANCH24, 0x0003, "The 24-bit relative displacement to the target."
+IMAGE_REL_ARM_BRANCH11, 0x0004, "Reference to a subroutine call, consisting of two 16-bit instructions with 11-bit offsets."
+IMAGE_REL_ARM_SECTION, 0x000E, "The 16-bit section index of the section containing the target. This is used to support debugging information."
+IMAGE_REL_ARM_SECREL, 0x000F, "The 32-bit offset of the target from the beginning of its section. This is used to support debugging information as well as static thread local storage."
+

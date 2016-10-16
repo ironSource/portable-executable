@@ -1,0 +1,3 @@
+Magic Number, PE Format
+0x10b, PE32
+0x20b, PE32+

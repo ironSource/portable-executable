@@ -1,0 +1,23 @@
+Offset PE32, Offset PE32+,, Size PE32, Size PE32+, Field, Description
+28, 24, 4 , 8, ImageBase, "Preferred address of first byte of image when loaded into memory; must be a multiple of 64K. The default for DLLs is 0x10000000. The default for Windows CE EXEs is 0x00010000. The default for Windows NT, Windows 95, and Windows 98 is 0x00400000."
+32, 32, 4, 4, SectionAlignment, "Alignment (in bytes) of sections when loaded into memory. Must greater or equal to File Alignment. Default is the page size for the architecture."
+36, 36, 4, 4, FileAlignment, "Alignment factor (in bytes) used to align the raw data of sections in the image file. The value should be a power of 2 between 512 and 64K inclusive. The default is 512. If the SectionAlignment is less than the architecture's page size than this must match the SectionAlignment."
+40, 40, 2, 2, MajorOperatingSystemVersion, "Major version number of required OS."
+42, 42, 2, 2, MinorOperatingSystemVersion, "Minor version number of required OS."
+44, 44, 2, 2, MajorImageVersion, "Major version number of image."
+46, 46, 2, 2, MinorImageVersion, "Minor version number of image."
+48, 48, 2, 2, MajorSubsystemVersion, "Major version number of subsystem."
+50, 50, 2, 2, MinorSubsystemVersion, "Minor version number of subsystem."
+52, 52, 4, 4, Reserved, dd
+56, 56, 4, 4, SizeOfImage, "Size, in bytes, of image, including all headers; must be a multiple of Section Alignment."
+60, 60, 4, 4, SizeOfHeaders, "Combined size of MS-DOS stub, PE Header, and section headers rounded up to a multiple of FileAlignment."
+64, 64, 4, 4, CheckSum, "Image file checksum. The algorithm for computing is incorporated into IMAGHELP.DLL. The following are checked for validation at load time: all drivers, any DLL loaded at boot time, and any DLL that ends up in the server."
+68, 68, 2, 2, Subsystem, "Subsystem required to run this image. See 'Windows NT Subsystem'  below for more information."
+70, 70, 2, 2, "DLL Characteristics See 'DLL Characteristics'  below for more information."
+72, 72, 4 , 8, SizeOfStackReserve, "Size of stack to reserve. Only the Stack Commit Size is committed; the rest is made available one page at a time, until reserve size is reached."
+76, 80, 4 , 8, SizeOfStackCommit, "Size of stack to commit."
+80, 88, 4 , 8, SizeOfHeapReserve, "Size of local heap space to reserve. Only the Heap Commit Size is committed; the rest is made available one page at a time, until reserve size is reached."
+84, 96, 4 , 8, SizeOfHeapCommit, "Size of local heap space to commit."
+88, 104, 4, 4, LoaderFlags, "Obsolete."
+92, 108, 4, 4, NumberOfRvaAndSizes, "Number of data-dictionary entries in the remainder of the Optional Header. Each describes a location and size."
+

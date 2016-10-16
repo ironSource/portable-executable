@@ -1,0 +1,11 @@
+Constant, Value, Description
+IMAGE_SUBSYSTEM_UNKNOWN, 0, "Unknown subsystem."
+IMAGE_SUBSYSTEM_NATIVE, 1, "Used for device drivers and native Windows NT processes."
+IMAGE_SUBSYSTEM_WINDOWS_GUI, 2, "Image runs in the Windows(tm)  graphical user interface (GUI) subsystem."
+IMAGE_SUBSYSTEM_WINDOWS_CUI, 3, Image runs in the Windows character subsystem."
+IMAGE_SUBSYSTEM_POSIX_CUI, 7, "Image runs in the Posix character subsystem."
+IMAGE_SUBSYSTEM_WINDOWS_CE_GUI, 9, "Image runs in on Windows CE."
+IMAGE_SUBSYSTEM_EFI_APPLICATION, 10, "Image is an EFI application."
+IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER,  11, "Image is an EFI driver that provides boot services."
+IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER, 12, "Image is an EFI driver that provides runtime services."
+

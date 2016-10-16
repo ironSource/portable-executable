@@ -1,0 +1,4 @@
+Constant, Value, Description
+IMPORT_CODE, 0, "The import is executable code."
+IMPORT_DATA, 1, "The import is data."
+IMPORT_CONST, 2, "The import was specified as CONST in the .def file."

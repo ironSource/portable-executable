@@ -1,0 +1,4 @@
+Offset, Size, Field, Description
+0, 4, Certificate Data, "File pointer to the certificate data. This will, always point to an address that is octaword aligned (i.e., is a multiple of 8 bytes and so the low-order 3 bits are zero)."
+0, 4, Size of Certificate, Unsigned integer identifying the size (in bytes), of the certificate.
+

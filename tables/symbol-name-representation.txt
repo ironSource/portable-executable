@@ -1,0 +1,5 @@
+Offset, Size, Field, Description
+0, 8, Short Name, "An array of eight bytes. This array is padded with nulls on the right if the name is less than eight bytes long."
+0, 4, Zeroes, "Set to all zeros if the name is longer than eight bytes."
+4, 4, Offset, "Offset into the String Table."
+

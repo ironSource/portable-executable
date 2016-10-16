@@ -1,0 +1,12 @@
+Offset, Size, Field, Description
+0, 2, Sig1, "Must be IMAGE_FILE_MACHINE_UNKNOWN. See Section 3.3.1, 'Machine Types,'  for more information."
+2, 2, Sig2, "Must be 0xFFFF."
+4, 2, Version
+6, 2, Machine, "Number identifying type of target machine. See Section 3.3.1, 'Machine Types,' for more, information."
+8, 4, Time-Date Stamp, "Time and date the file was created."
+12, 4, Size Of Data, "Size of the strings following the header."
+16, 2, Ordinal/Hint, "Either the ordinal or the hint for the import, determined by the value in the Name Type field."
+18, 2 bits, Type, "The import type. See Section 8.2 Import Type for specific values and descriptions."
+,3 bits, Name Type, "The Import Name Type. See Section 8.3. Import Name Type,  for specific values and descriptions."
+,11 bits, Reserved, "Reserved. Must be zero."
+

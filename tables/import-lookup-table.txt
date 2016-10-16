@@ -1,0 +1,4 @@
+Bit(s), Size, Bit Field, Description
+31 / 63, 1, Ordinal/Name Flag, "If bit is set, import by ordinal. Otherwise, import by name. Bit is masked as 0x80000000 for PE32, 0x8000000000000000 for PE32+."
+30 - 0 / 62 - 0, 31 / 63, Ordinal Number, "Ordinal/Name Flag is 1: import by ordinal. This field is a 31-bit (63-bit) ordinal number."
+30 - 0 / 62 - 0, 31 / 63, Hint/Name Table RVA, "Ordinal/Name Flag is 0: import by name. This field is a 31-bit (63-bit) address of a Hint/Name Table entry, relative to image base."

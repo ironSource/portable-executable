@@ -1,0 +1,5 @@
+Constant, Value, Description
+IMAGE_SYM_UNDEFINED, 0, "Symbol record is not yet assigned a section. If the value is 0 this indicates a references to an external symbol defined elsewhere. If the value is non-zero this is a common symbol with a size specified by the value."
+IMAGE_SYM_ABSOLUTE, -1, "The symbol has an absolute (non-relocatable) value and is not an address."
+IMAGE_SYM_DEBUG, -2, "The symbol provides general type or debugging information but does not correspond to a section. Microsoft tools use this setting along with .file records (storage class FILE)."
+

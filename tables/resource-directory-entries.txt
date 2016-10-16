@@ -1,0 +1,5 @@
+Offset, Size, Field, Description
+0, 4, Name RVA, "Address of string that gives the Type, Name, or Language identifier, depending on level of table."
+0, 4, Integer ID, "32-bit integer that identifies Type, Name, or Language."
+4, 4, Data Entry RVA, "High bit 0. Address of a Resource Data Entry (a leaf)."
+4, 4, Subdirectory RVA, "High bit 1. Lower 31 bits are the address of another Resource Directory Table (the next level down)."

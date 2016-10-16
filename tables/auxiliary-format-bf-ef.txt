@@ -1,0 +1,6 @@
+Offset, Size, Field, Description
+0, 4,,Unused.
+4, 2, Linenumber, "Actual ordinal line number (1, 2, 3, etc.) within, source file, corresponding to the .bf or .ef, record."
+6, 6,, Unused.
+12, 4, PointerToNextFunction, "(.bf only) Symbol-table index of the next .bf symbol record. If the function is the last in the symbol table, this field is set to zero. Not used for .ef records."
+16, 2,, Unused.

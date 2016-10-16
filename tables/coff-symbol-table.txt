@@ -1,0 +1,8 @@
+Offset, Size, Field, Description
+0, 8, Name, "Name of the symbol, represented by union of three structures. An array of eight bytes is used if the name is not more than eight bytes long. See Section 5.4.1, 'Symbol Name Representation, ” for more information."
+8, 4, Value, "Value associated with the symbol. The interpretation of this field depends on Section Number and Storage Class. A typical meaning is the relocatable address."
+12, 2, SectionNumber, "Signed integer identifying the section, using a one-based index into the Section Table. Some values have special meaning defined in 'Section???"
+14, 2, Type, "A number representing type. Microsoft tools set this field to 0x20 (function) or 0x0 (not a function). See Section 5.4.3, 'Type Representation,'  for more information."
+16, 1, StorageClass, "Enumerated value representing storage class. See Section 5.4.4, 'Storage Class,'  for more information."
+17, 1, NumberOfAuxSymbols, "Number of auxiliary symbol table entries that follow this record."
+

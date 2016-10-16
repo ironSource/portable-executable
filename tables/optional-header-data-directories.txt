@@ -1,0 +1,18 @@
+Offset (PE/PE32+), Size, Field, Description
+96/112, 8, Export Table, Export Table address and size.
+104/120, 8, Import Table, Import Table address and size
+112/128, 8, Resource Table, Resource Table address and size.
+120/136, 8, Exception Table, Exception Table address and size.
+128/144, 8, Certificate Table, "Attribute Certificate Table address and size."
+136/152, 8, Base Relocation Table, Base Relocation Table address and size.
+144/160, 8, Debug, Debug data starting address and size.
+152/168, 8, Architecture, Architecture-specific data address and size.
+160/176, 8, Global Ptr, "Relative virtual address of the value to be stored in the global pointer register. Size member of this structure must be set to 0."
+168/184, 8, TLS Table, "Thread Local Storage (TLS) Table address and size."
+176/192, 8, Load Config Table, "Load Configuration Table address and size."
+184/200, 8, Bound Import, "Bound Import Table address and size."
+192/208, 8, IAT, "Import Address Table address and size."
+200/216, 8, Delay Import Descriptor, "Address and size of the Delay Import Descriptor."
+208/224, 8, COM+ Runtime Header, "COM+ Runtime Header address and size"
+216/232, 8, Reserved
+

@@ -1,0 +1,7 @@
+Offset, Size, Field, Description
+0, 4, Data RVA, "Address of a unit of resource data in the, Resource Data area."
+4, 4, Size, "Size, in bytes, of the resource data pointed to by the Data RVA field."
+8, 4, Codepage, "Code page used to decode code point values within the resource data. Typically, the code page would be the Unicode code page."
+12, 4, "Reserved (must be set to 0)"
+
+

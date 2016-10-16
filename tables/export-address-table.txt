@@ -1,0 +1,3 @@
+Offset, Size, Field, Description
+0, 4, Export RVA, "Address of the exported symbol when loaded into memory, relative to the image base. For example, the address of an exported function."
+0, 4, Forwarder RVA, "Pointer to a null-terminated ASCII string in the export section, giving the DLL name and the name of the export (for example, 'MYDLL.expfunc') or the DLL name and an export (for example, 'MYDLL.#27')."

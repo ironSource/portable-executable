@@ -1,0 +1,8 @@
+Offset, Size, Field, Description
+0, 4, Length, "Size of section data; same as Size of Raw Data in the section header."
+4, 2, NumberOfRelocations, "Number of relocation entries for the section."
+6, 2, NumberOfLinenumbers, Number of line-number entries for the section."
+8, 4, Check Sum, "Checksum for communal data. Applicable if the IMAGE_SCN_LNK_COMDAT flag is set in the section header. See 'COMDAT Sections' below, for more information."
+12, 2, Number, "One-based index into the Section Table for the associated section; used when the COMDAT Selection setting is 5."
+14, 1, Selection, "COMDAT selection number. Applicable if the section is a COMDAT section."
+15, 3,, Unused.

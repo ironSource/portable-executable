@@ -1,0 +1,7 @@
+Offset, Size, Field, Description
+0, 4, Begin Address, "Virtual address of the corresponding function."
+4, 8 bits, Prolog Length, "Number of instructions in the function's prolog."
+4, 22 bits, "Function Length Number of instructions in the function."
+4, 1 bit, 32-bit Flag, "Set if the function is comprised of 32-bit instructions, cleared for a 16-bit function."
+4, 1 bit, Exception Flag, "Set if an exception handler exists for the function."
+

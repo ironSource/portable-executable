@@ -1,0 +1,4 @@
+Offset, Size, Field, Description
+0, 4, TagIndex, "Symbol-table index of sym2, the symbol to be linked if sym1 is not found."
+4, 4, Characteristics, A value of IMAGE_WEAK_EXTERN_SEARCH_NOLIBRAR Y indicates that no library search for sym1 should be performed. A value of IMAGE_WEAK_EXTERN_SEARCH_LIBRARY indicates that a library search for sym1 should be performed. A value of IMAGE_WEAK_EXTERN_SEARCH_ALIAS indicates that sym1 is an alias for sym2."
+8, 10,, Unused.

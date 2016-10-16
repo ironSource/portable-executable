@@ -1,0 +1,3 @@
+Offset, Size, Field, Description
+0, 2, Length, "Size of string, not including length field itself."
+2, Variable Unicode String, "Variable-length Unicode string data, word aligned."

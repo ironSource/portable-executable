@@ -1,0 +1,10 @@
+Offset, Size, Field, Description
+0, 4, Attributes, "Must be zero."
+4, 4, Name, "Relative virtual address of the name of the DLL to be loaded. The name resides in the read-only data section of the image."
+8, 4, Module Handle, Relative virtual address of the module handle (in the data section of the image) of the DLL to be delay-loaded. Used for storage by the routine supplied to manage delay-loading."
+12, 4, Delay Import Address Table, "Relative virtual address of the delay-load import address table. See below for further details."
+16, 4, Delay Import Name Table, "Relative virtual address of the delay-load name table, which contains the names of the imports that may need to be loaded. Matches the layout of the Import Name Table, Section 6.4.3. Hint/Name Table."
+20, 4, Bound Delay Import Table, "Relative virtual address of the bound delay-load address table, if it exists."
+24, 4, Unload Delay Import Table, "Relative virtual address of the unload delay-load address table, if it exists. This is an exact copy of the Delay Import Address Table. In the event that the caller unloads the DLL, this table should be copied back over the Delay IAT such that subsequent calls to the DLL continue to use the thunking mechanism correctly."
+28, 4, Time Stamp. "Time stamp of DLL to which this image has been bound."
+

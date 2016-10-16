@@ -1,0 +1,6 @@
+Offset, Size, Field, Description
+0, 4, Number of Members, "Unsigned long containing the number of archive members."
+4, 4 * m, Offsets, "Array of file offsets to archive member headers, arranged in ascending order. Each offset is an unsigned long. The number m  is equal to the value of the Number of Members field."
+*, 4, Number of Symbols, "Unsigned long containing the number of symbols indexed. Each object-file member typically defines one or more external symbols."
+*, 2 * n, Indices, "Array of 1-based indices (unsigned short) which map symbol names to archive member offsets. The number n is equal to Number of Symbols. For each symbol named in the String Table, the corresponding element in the Indices array gives an index into the Offsets array. The Offsets array, in turn, gives the location of the archive member that contains the symbol."
+*, *, String Table, "Series of null-terminated strings that name all the symbols in the directory. Each string begins immediately after the null byte in the previous string. The number of strings must be equal to the value of the Number of Symbols fields. This table lists all the symbol names in ascending lexical order."

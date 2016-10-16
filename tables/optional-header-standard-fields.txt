@@ -1,0 +1,10 @@
+Offset, Size, Field, Description
+0, 2, Magic, "Unsigned integer identifying the state of the image file. The most common number is 0413 octal (0x10B), identifying it as a normal executable file. 0407 (0x107) identifies a ROM image."
+2, 1, MajorLinkerVersion, "Linker major version number."
+3, 1, MinorLinkerVersion, "Linker minor version number."
+4, 4, SizeOfCode, "Size of the code (text) section, or the sum of all code sections if there are multiple sections."
+8, 4, SizeOfInitializedData, "Size of the initialized data section, or the sum of all such sections if there are multiple data sections."
+12, 4, SizeOfUninitializedData, "Size of the uninitialized data section (BSS), or the sum of all such sections if there are multiple BSS sections."
+16, 4, AddressOfEntryPoint, "Address of entry point, relative to image base, when executable file is loaded into memory. For program images, this is the starting address. For device drivers, this is the address of the initialization function. An entry point is optional for DLLs. When none is present this field should be 0."
+20, 4, BaseOfCode, "Address, relative to image base, of beginning of code section, when loaded into memory."
+24, 4, BaseOfData, "Address, relative to image base, of beginning of data section, when loaded into memory. (only in PE32)"

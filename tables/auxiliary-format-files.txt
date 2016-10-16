@@ -1,0 +1,2 @@
+Offset, Size, Field, Description
+0, 18, File Name, "ASCII string giving the name of the source file; padded with nulls if less than maximum length."

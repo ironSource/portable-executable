@@ -1,0 +1,4 @@
+Offset, Size, Field, Description
+0, 2, Hint, "Index into the Export Name Pointer Table. A match is attempted first with this value. If it fails, a binary search is performed on the DLL’s Export Name Pointer Table."
+2, variable, Name, "ASCII string containing name to import. This is the string that must be matched to the public name in the DLL. This string is case sensitive and terminated by a null byte."
+*, 0 or 1, Pad, "A trailing zero pad byte appears after the trailing null byte, if necessary, to align the next entry on an even boundary."

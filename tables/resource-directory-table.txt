@@ -1,0 +1,7 @@
+Offset, Size, Field, Description
+0, 4, Characteristics, "Resource flags, reserved for future use; currently set to zero."
+4, 4, Time/Date Stamp, "Time the resource data was created by the resource compiler."
+8, 2, Major Version, "Major version number, set by the user."
+10, 2, Minor Version, "Minor version number."
+12, 2, Number of Name Entries, Number of directory entries, immediately, following the table, that use strings to, identify Type, Name, or Language (depending on the level of the table)."
+14, 2, "Number of ID Entries Number of directory entries, immediately following the Name entries, that use numeric identifiers for Type, Name, or Language."

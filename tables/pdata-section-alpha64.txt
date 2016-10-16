@@ -1,0 +1,6 @@
+Offset, Size, Field, Description
+0, 8, Begin Address, "Virtual address of the corresponding function."
+8, 8, End Address, "Virtual address of the end of the function."
+16, 8, Exception Handler, "Pointer to the exception handler to be executed."
+24, 8, Handler Data, "Pointer to additional information to be passed to the handler."
+32, 8, Prolog End Address, "Virtual address of the end of the function's, prolog."

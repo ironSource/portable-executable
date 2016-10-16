@@ -1,0 +1,7 @@
+Offset, Size, Field, Description
+0, 4, TagIndex, "Symbol-table index of the corresponding .bf (begin function) symbol record."
+4, 4, TotalSize, "Size of the executable code for the function itself. If the function is in its own section, the Size of Raw Data in the section header will be greater or equal to this field, depending on alignment considerations."
+8, 4, PointerToLinenumber, "File offset of the first COFF line-number entry for the function, or zero if none exists. See Section 5.3, 'COFF Line Numbers,'  for more information."
+12, 4, PointerToNextFunction, Symbol-table index of the record for the next function. If the function is the last in the symbol table, this field is set to zero.
+16, 2,, Unused.
+

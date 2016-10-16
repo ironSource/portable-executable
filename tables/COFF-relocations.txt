@@ -1,0 +1,5 @@
+Offset, Size, Field, Description
+0, 4, VirtualAddress, "Address of the item to which relocation is applied: this is the offset from the beginning of the section, plus the value of the section's RVA/Offset field (see Section 4, 'Section Table.'). For example, if the first byte of the section has an address of 0x10, the third byte has an address of 0x12."
+4, 4, SymbolTableIndex, "A zero-based index into the symbol table. This symbol gives the address to be used for the relocation. If the specified symbol has section storage class, then the symbol's address is the address with the first section of the same name."
+8, 2, Type, "A value indicating what kind of relocation should be performed. Valid relocation types depend on machine type. See Section 5.2.1, 'Type Indicators.'"
+

@@ -1,0 +1,7 @@
+Offset PE32, Offset PE32+, Size PE32, Size PE32+, Header part, Description
+0, 0, 28, 24, "Standard fields These are defined for all implementations of COFF, including UNIX(R)."
+28, 24, 68, 88, "Windows specific fields These include additional fields to support specific features of Windows (for example, subsystem)."
+96, 112, Variable, Variable, Data directories, "These fields are address/size pairs for special tables, found in the image file and used by the operating system (for example, Import Table and Export Table)."
+
+
+

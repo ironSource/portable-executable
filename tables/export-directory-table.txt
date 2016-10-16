@@ -1,0 +1,13 @@
+Offset, Size, Field, Description
+0, 4, Export Flags, "A reserved field, set to zero for now."
+4, 4, Time/Date Stamp, "Time and date the export data was created."
+8, 2,Major Version, "Major version number. The major/minor version number can be set by the user."
+10, 2, Minor Version, "Minor version number."
+12, 4, Name RVA, "Address of the ASCII string containing the name of the DLL. Relative to image base."
+16, 4, Ordinal Base, "Starting ordinal number for exports in this image. This field specifies the starting ordinal number for the Export Address Table. Usually set to 1."
+20, 4, Address Table Entries, Number of entries in the Export Address Table."
+24, 4, Number of Name Pointers, Number of entries in the Name Pointer Table (also the number of entries in the Ordinal Table)."
+28, 4, Export Address Table RVA, "Address of the Export Address Table, relative to the image base."
+32, 4, "Name Pointer RVA Address of the Export Name Pointer Table, relative to the image base. The table size is given by Number of Name Pointers."
+36, 4, "Ordinal Table RVA Address of the Ordinal Table, relative to the image base."
+

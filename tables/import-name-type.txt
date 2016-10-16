@@ -1,0 +1,5 @@
+Constant, Value, Description
+IMPORT_ORDINAL, 0, "The import is by ordinal. This indicates that the value in the Ordinal/Hint field of the Import Header is the import’s ordinal. If this constant is not specified, then the Ordinal/Hint field should always be interpreted as the import's hint."
+IMPORT_NAME, 1, "The import name is identical to the public symbol name."
+IMPORT_NAME_NOPREFIX, 2, "The import name is the public symbol name, but skipping the leading ?, @, or optionally _."
+IMPORT_NAME_UNDECORATE, 3, "The import name is the public symbol name, but skipping the leading ?, @, or optionally _, and truncating at the first @."
