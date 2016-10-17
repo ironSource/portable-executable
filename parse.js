@@ -89,7 +89,7 @@ if(!module.parent) {
       //      2. parse line numbers
 
       if(sh.pointerToLineNumbers)
-        sh.lineNumbers = parseArray(buffer, sh.numberOfLineNumbers, sh.pointerToLineNumbers, LineNumber)
+        sh.lineNumbers = parseArray(buffer, sh.numberOfLineNumbers, sh.pointerToLineNumbers, LineNumber.decode)
 
       return sh
     })
@@ -104,9 +104,14 @@ if(!module.parent) {
       return e
     })
 
-  console.log(output)
-  console.log(max)
+  console.log(JSON.stringify(output, null, 2))
 }
+
+
+
+
+
+
 
 
 
