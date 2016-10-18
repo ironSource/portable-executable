@@ -60,10 +60,10 @@ function cString(s) {
   return s.toString('ascii').replace(/\u0000+$/,'') //a cstring (null terminated)
 }
 
-if(!module.parent) {
+function PortableExecutable (buffer, offset) {
+
   var output = {}
   var offset = 0
-  var buffer = require('fs').readFileSync('HELLO2.OBJ')
   var ch = output.coffHeader = CoffHeader.decode(buffer)
   offset+= CoffHeader.decode.bytes
   if(ch.optionalHeaderSize !== 0) throw new Error('optional header not yet implemented')
@@ -104,8 +104,17 @@ if(!module.parent) {
       return e
     })
 
-  console.log(JSON.stringify(output, null, 2))
+  return output
+
 }
+
+if(!module.parent) {
+  var buffer = require('fs').readFileSync('./data/HELLO2.OBJ')
+
+  console.log(JSON.stringify(PortableExecutable(buffer, 0), null, 2))
+}
+
+
 
 
 
