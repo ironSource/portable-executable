@@ -36,7 +36,7 @@ public struct IMAGE_DOS_HEADER
 }
 */
 
-var String = {
+var Name = {
   decode: function decode (buffer, offset) {
     var zeros = buffer.readUInt32LE(offset)
     var pointer = buffer.readUInt32LE(offset+4)
@@ -90,7 +90,7 @@ var CoffHeader = v([
 ])
 
 var SectionHeader = v([
-  {name: 'name',             type: String}, //v.Buffer(8)},
+  {name: 'name',             type: Name}, //v.Buffer(8)},
   {name: 'virtualSize',      type: v.UInt32LE},
   {name: 'virtualAddress',   type: v.UInt32LE},
   {name: 'sizeOfRawData',    type: v.UInt32LE},
@@ -103,7 +103,7 @@ var SectionHeader = v([
 ])
 
 var Symbol = v([
-  {name: 'name',             type: String},
+  {name: 'name',             type: Name},
   {name: 'value',            type: v.UInt32LE},
   {name: 'sectionNumber',    type: v.UInt16LE},
   {name: 'type',             type: v.UInt16LE},
@@ -170,7 +170,7 @@ var OptionalHeader32 = struct({
   tlsTable: SizedPointer,
   loadConfigTable: SizedPointer,
   boundImport: SizedPointer,
-  importAddressImport: SizedPointer,
+  importAddressTable: SizedPointer,
   delayImportDescriptor: SizedPointer,
   comRuntimeHeader: SizedPointer,
   reserved2: v.Buffer(8)
@@ -195,6 +195,14 @@ function cString(s) {
   return s.toString('ascii').replace(/\u0000+$/,'') //a cstring (null terminated)
 }
 
+var ImportDirectory = struct({
+  importLookupTableRva: v.UInt32LE,
+  timestamp: v.UInt32LE,
+  forwarderChain: v.UInt32LE,
+  nameRva: v.UInt32LE,
+  importAddressTable: v.UInt32LE
+})
+
 function PortableExecutable (buffer, offset) {
 
   var output = {}
@@ -209,21 +217,28 @@ function PortableExecutable (buffer, offset) {
     var magic = buffer.readUInt16LE(offset)
     offset += 2
     if(magic === 0x10b) //32bit
-      output.optionalHeader32 = OptionalHeader32.decode(buffer, offset)
+      output.optionalHeader = OptionalHeader32.decode(buffer, offset)
     else if(magic === 0x20b)
       throw new Error('PE32+ format not yet supported')
     else
       throw new Error('expected PortableExecutable optional header magic number, got:' + magic)
+    //console.log(output.optionalHeader)
+    var div = output.optionalHeader.sizeOfImage/output.optionalHeader.sectionAlignment
+    assert.ok(div === ~~div, 'sizeOfImagemage must be multiple of sectionAlignment')
+    //assert.equal(output.optionalHeader.sizeOfImage, buffer.length)
+
+    var op = output.optionalHeader
+    for(var k in op)
+      if(op[k].pointer && op[k].size)
+        op[k].data = buffer.slice(op[k].pointer,  op[k].pointer + op[k].size)
 
     offset += offset+ch.optionalHeaderSize
   }
   var sections = ch.sections
 
-  console.log('coffHeader', output.coffHeader.sections, offset)
   output.sections =
     parseArray(buffer, output.coffHeader.sections, offset, SectionHeader.decode)
     .map(function (sh) {
-      sh.name = cString(sh.name)
       //the way it reads ahead sort of breaks varstruct's abstraction.
       if(sh.sizeOfRawData)
         sh.data = buffer.slice(sh.pointerToRawData,sh.pointerToRawData+sh.sizeOfRawData)
@@ -237,16 +252,22 @@ function PortableExecutable (buffer, offset) {
       return sh
     })
 
-  offset = output.coffHeader.symbolPointer
+  if(output.coffHeader.symbolPointer) {
+    offset = output.coffHeader.symbolPointer
 
-  output.symbols =
-    parseArray(buffer, output.coffHeader.symbols, offset, Symbol.decode)
-    .map(function (e) {
-      //actually a friggen UNION.. "See Section 5.4.1, Symbol Name Representation"
-      e.name = cString(e.name)
-      return e
-    })
+    output.symbols =
+      parseArray(buffer, output.coffHeader.symbols, offset, Symbol.decode)
 
+    offset+=parseArray.bytes
+
+  //  var stringTableLength = buffer.readUInt32LE(offset)
+  //
+  //  var stringTable = buffer.slice(offset+4, offset+4+stringTableLength)
+  //    console.log("STRING TABLE LEN", parseArray.bytes, stringTableLength)
+  //
+  //  output.stringTable = stringTable.toString()
+
+  }
   return output
 
 }
@@ -278,6 +299,14 @@ if(!module.parent) {
 //
 //  console.log(JSON.stringify(PortableExecutable(buffer, 0), null, 2))
 }
+
+
+
+
+
+
+
+
 
 
 
