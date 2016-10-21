@@ -35,18 +35,22 @@ public struct IMAGE_DOS_HEADER
 
 }
 */
+function truncate (s) {
+  return s.toString('ascii').replace(/\u0000.*$/,'')
+}
 
 var Name = {
   decode: function decode (buffer, offset) {
     var zeros = buffer.readUInt32LE(offset)
     var pointer = buffer.readUInt32LE(offset+4)
+    console.log('Name?', offset, zeros, pointer, buffer.slice(offset-2, offset+8))
     decode.bytes = 8
     if(zeros === 0) {
       var i = 0
       while(buffer[pointer + i] != 0) i++
-      return buffer.slice(pointer, pointer + i-1).toString()
+      return truncate(buffer.slice(pointer-1, pointer + i-1))
     }
-    return buffer.slice(offset, offset + 8).toString()
+    return truncate(buffer.slice(offset, offset + 8))
   },
   encode: function () {
     throw new Error('string encode is not implemented')
@@ -209,15 +213,13 @@ function PortableExecutable (buffer, offset) {
   offset = offset || 0
   var ch = output.coffHeader = CoffHeader.decode(buffer, offset)
   offset+= CoffHeader.decode.bytes
-//  if(ch.optionalHeaderSize !== 0) throw new Error('optional header not yet implemented')
 
   if(ch.optionalHeaderSize) {
-      console.log(buffer.slice(offset, offset+ch.optionalHeaderSize))
-
     var magic = buffer.readUInt16LE(offset)
-    offset += 2
+    //note, read OptionalHeader two bytes later, to make room for magic number.
     if(magic === 0x10b) //32bit
-      output.optionalHeader = OptionalHeader32.decode(buffer, offset)
+      output.optionalHeader = OptionalHeader32.decode(buffer, offset+2)
+
     else if(magic === 0x20b)
       throw new Error('PE32+ format not yet supported')
     else
@@ -232,9 +234,11 @@ function PortableExecutable (buffer, offset) {
       if(op[k].pointer && op[k].size)
         op[k].data = buffer.slice(op[k].pointer,  op[k].pointer + op[k].size)
 
-    offset += offset+ch.optionalHeaderSize
+    offset += ch.optionalHeaderSize
   }
+
   var sections = ch.sections
+  //offset was 2 bytes off? how
 
   output.sections =
     parseArray(buffer, output.coffHeader.sections, offset, SectionHeader.decode)
@@ -299,6 +303,12 @@ if(!module.parent) {
 //
 //  console.log(JSON.stringify(PortableExecutable(buffer, 0), null, 2))
 }
+
+
+
+
+
+
 
 
 
