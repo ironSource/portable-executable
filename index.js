@@ -1,6 +1,13 @@
 
 var v = require('varstruct')
 
+function struct (obj) {
+  var a = []
+  for(var k in obj)
+    a.push({name: k, type: obj[k]})
+  return v(a)
+}
+var assert = require('assert')
 /*
 public struct IMAGE_DOS_HEADER
 
@@ -28,6 +35,26 @@ public struct IMAGE_DOS_HEADER
 
 }
 */
+
+var String = {
+  decode: function decode (buffer, offset) {
+    var zeros = buffer.readUInt32LE(offset)
+    var pointer = buffer.readUInt32LE(offset+4)
+    decode.bytes = 8
+    if(zeros === 0) {
+      var i = 0
+      while(buffer[pointer + i] != 0) i++
+      return buffer.slice(pointer, pointer + i-1).toString()
+    }
+    return buffer.slice(offset, offset + 8).toString()
+  },
+  encode: function () {
+    throw new Error('string encode is not implemented')
+  },
+
+  encodingLength: function () { return 8 }
+
+}
 
 var DosHeader = v([
   {name: 'magicNumber', type: v.Buffer(2)}, //Must be: 5A4D, "MZ"
@@ -63,7 +90,7 @@ var CoffHeader = v([
 ])
 
 var SectionHeader = v([
-  {name: 'name',             type: v.Buffer(8)},
+  {name: 'name',             type: String}, //v.Buffer(8)},
   {name: 'virtualSize',      type: v.UInt32LE},
   {name: 'virtualAddress',   type: v.UInt32LE},
   {name: 'sizeOfRawData',    type: v.UInt32LE},
@@ -76,7 +103,7 @@ var SectionHeader = v([
 ])
 
 var Symbol = v([
-  {name: 'name',             type: v.Buffer(8)},
+  {name: 'name',             type: String},
   {name: 'value',            type: v.UInt32LE},
   {name: 'sectionNumber',    type: v.UInt16LE},
   {name: 'type',             type: v.UInt16LE},
@@ -90,6 +117,64 @@ var LineNumber = v([
   {name: 'symbolTableIndex', type: v.UInt32LE},
   {name: 'virtualAddress', type: v.UInt32LE}
 ])
+
+var SizedPointer = struct({
+  pointer: v.UInt32LE,
+  size: v.UInt32LE
+})
+
+//magic number is 0x10b
+var OptionalHeader32 = struct({
+  //standard fields
+  majorLinkerVersion:  v.UInt8,
+  minorLinkerVersion: v.UInt8,
+  sizeOfCode: v.UInt32LE,
+  sizeOfInitializedData: v.UInt32LE,
+  sizeOfUninitializedData: v.UInt32LE,
+  pointerToEntryPoint: v.UInt32LE,
+  baseOfCode: v.UInt32LE,
+  baseOfData: v.UInt32LE, //PE32 only
+
+  //windows specific headers
+  imageBase: v.UInt32LE,
+  sectionAlignment: v.UInt32LE,
+  fileAlignment: v.UInt32LE,
+  majorOSVersion: v.UInt16LE,
+  minorOSVersion: v.UInt16LE,
+  majorImageVersion: v.UInt16LE,
+  minorImageVersion: v.UInt16LE,
+  majorSubsystemVersion: v.UInt16LE,
+  minorSubsystemVersion: v.UInt16LE,
+  reserved: v.Buffer(4),
+  sizeOfImage: v.UInt32LE,
+  sizeOfHeaders: v.UInt32LE,
+  checksum: v.UInt32LE,
+  subsystem: v.UInt16LE,
+  dllCharacteristics: v.UInt16LE,
+  sizeOfStackReserve: v.UInt32LE,
+  sizeOfStackCommit: v.UInt32LE,
+  sizeOfHeapReserve: v.UInt32LE,
+  sizeOfHeapCommit: v.UInt32LE,
+  loaderFlags: v.UInt32LE,
+  numberOfRvaAndSizes: v.UInt32LE,
+
+  exportTable: SizedPointer,
+  importTable: SizedPointer,
+  resourceTable: SizedPointer,
+  exceptionTable: SizedPointer,
+  certificateTable: SizedPointer,
+  baseRelocationTable: SizedPointer,
+  debug: SizedPointer,
+  architecture: SizedPointer,
+  globalPointer: SizedPointer,
+  tlsTable: SizedPointer,
+  loadConfigTable: SizedPointer,
+  boundImport: SizedPointer,
+  importAddressImport: SizedPointer,
+  delayImportDescriptor: SizedPointer,
+  comRuntimeHeader: SizedPointer,
+  reserved2: v.Buffer(8)
+})
 
 module.exports = function (buffer) {
   COFFHeader.decode(buffer, 0)
@@ -113,35 +198,35 @@ function cString(s) {
 function PortableExecutable (buffer, offset) {
 
   var output = {}
-  var offset = 0
-  var ch = output.coffHeader = CoffHeader.decode(buffer)
+  offset = offset || 0
+  var ch = output.coffHeader = CoffHeader.decode(buffer, offset)
   offset+= CoffHeader.decode.bytes
 //  if(ch.optionalHeaderSize !== 0) throw new Error('optional header not yet implemented')
 
   if(ch.optionalHeaderSize) {
-    console.log(output)
-    console.log(ch.optionalHeaderSize)
-    output.optionalHeader = buffer.slice(offset, offset+ch.optionalHeaderSize)
-  offset += offset+ch.optionalHeaderSize
+      console.log(buffer.slice(offset, offset+ch.optionalHeaderSize))
+
+    var magic = buffer.readUInt16LE(offset)
+    offset += 2
+    if(magic === 0x10b) //32bit
+      output.optionalHeader32 = OptionalHeader32.decode(buffer, offset)
+    else if(magic === 0x20b)
+      throw new Error('PE32+ format not yet supported')
+    else
+      throw new Error('expected PortableExecutable optional header magic number, got:' + magic)
+
+    offset += offset+ch.optionalHeaderSize
   }
   var sections = ch.sections
-//  output.sections = []
-//  while(sections --) {
-//    var sh = SectionHeader.decode(buffer, offset)
-//    sh.name = sh.name.toString('ascii').replace(/\u0000+$/,'') //a cstring (null terminated)
-//    offset += SectionHeader.decode.bytes
-//    sh.data = buffer.slice(sh.pointerToRawData,sh.pointerToRawData+sh.sizeOfRawData) 
-//    output.sections.push(sh)
-//  }
 
-  console.log('coffHeader', output.coffHeader.sections)
+  console.log('coffHeader', output.coffHeader.sections, offset)
   output.sections =
     parseArray(buffer, output.coffHeader.sections, offset, SectionHeader.decode)
     .map(function (sh) {
       sh.name = cString(sh.name)
-      console.log('section', sh.name)
       //the way it reads ahead sort of breaks varstruct's abstraction.
-      sh.data = buffer.slice(sh.pointerToRawData,sh.pointerToRawData+sh.sizeOfRawData)
+      if(sh.sizeOfRawData)
+        sh.data = buffer.slice(sh.pointerToRawData,sh.pointerToRawData+sh.sizeOfRawData)
 
       //TODO: 1. parse relocations
       //      2. parse line numbers
@@ -173,20 +258,26 @@ if(!module.parent) {
     console.log(dh)
     console.log(buffer.readUInt32LE(0x3c))
 
-    var offset = dh.pointerToNewHeader
+    var sig = buffer.readUInt32LE(dh.pointerToNewHeader)
+
+    assert.equal(0x4550, sig)
+
+    //in an image (exe) there is a "Signature" first
+    //which is not present in a object file.
+    var offset = dh.pointerToNewHeader + 4
     //0x5045 0000
 
-    console.log(buffer.slice(dh.pointerToNewHeader, dh.pointerToNewHeader + 4))
-    console.log(offset + 4)
-    console.log(PortableExecutable(buffer, offset + 4 - 4))
+    console.log(offset, dh.pointerToNewHeader+4)
+    console.log(CoffHeader.decode(buffer, dh.pointerToNewHeader+4))
+
+//    console.log(buffer.slice(dh.pointerToNewHeader, dh.pointerToNewHeader + 4))
+//    console.log(offset + 4)
+    console.log(PortableExecutable(buffer, offset))
   }
 //  var buffer = require('fs').readFileSync('./data/HELLO2.OBJ')
 //
 //  console.log(JSON.stringify(PortableExecutable(buffer, 0), null, 2))
 }
-
-
-
 
 
 
