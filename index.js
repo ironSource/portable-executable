@@ -4,8 +4,8 @@ var h = require('./headers')
 var assert = require('assert')
 
 exports.strings = function strings (buffer) {
-  var strings = [], str
-
+  var strings = [], str = ''
+ 
   //extract strings at least 3 chars long, by matching ascii ranges.
 
   for(var i = 0; i < buffer.length; i++) {
