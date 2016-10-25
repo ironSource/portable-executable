@@ -8,6 +8,8 @@
     "url": "git://github.com/dominictarr/portable-executable.git"
   },
   "dependencies": {
+    "hexpp": "^2.0.0",
+    "minimist": "^1.2.0",
     "varstruct": "^5.2.1"
   },
   "devDependencies": {},
