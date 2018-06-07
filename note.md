@@ -42,7 +42,7 @@ element only encompasses a small portion of the bytes in the .rdata section.
 
 "Most array entries describe an entire section's data"
 
-in bytefence, the .rsrc section and the source table have the same size!
+the .rsrc section and the source table have the same size!
 and the resourceTable.pointer = [.rsrc].virtualAddress
 
 > 229376 - 28672
