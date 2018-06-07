@@ -1,0 +1,6 @@
+.npmignore
+note.md
+spec.html
+*.exe
+1.js
+1.json

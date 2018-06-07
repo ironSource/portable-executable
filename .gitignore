@@ -1,3 +1,6 @@
 hours.txt
 node_modules
+*.exe
+1.js
+1.json
 
